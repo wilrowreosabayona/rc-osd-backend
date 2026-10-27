@@ -1,0 +1,44 @@
+package org.rocs.osdrmsa.dto.mapper;
+
+import org.rocs.osdrmsa.dto.response.RequestResponse;
+import org.rocs.osdrmsa.dto.request.RequestSubmitRequest;
+import org.rocs.osdrmsa.domain.request.Request;
+import org.rocs.osdrmsa.utils.converter.DateConversion;
+
+public final class RequestDtoMapper {
+
+    private RequestDtoMapper() {}
+
+    public static Request toEntity(RequestSubmitRequest request) {
+        Request entity = new Request();
+
+        entity.setDetails(request.details());
+        entity.setMessage(request.message());
+        entity.setType(request.type());
+        entity.setDeliveryMethod(request.deliveryMethod());
+        entity.setDeliveryEmail(request.deliveryEmail());
+
+        return entity;
+    }
+
+    public static RequestResponse toResponse(Request request, String graduationEligibility) {
+        if (request == null) {
+            return null;
+        }
+
+        return new RequestResponse(
+                request.getRequestID(),
+                request.getEmployeeID(),
+                request.getDetails(),
+                request.getMessage(),
+                request.getType(),
+                request.getStatus(),
+                request.getDateFiled(),
+                DateConversion.toLocalDateTime(request.getDateProcessed()),
+                request.getRemarks(),
+                graduationEligibility,
+                request.getDeliveryMethod(),
+                request.getDeliveryEmail()
+        );
+    }
+}

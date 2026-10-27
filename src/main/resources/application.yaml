@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: osdrmsa-appl
+
+  datasource:
+    url: ${DB_URL:jdbc:oracle:thin:@localhost:1521/oracleDB}
+    username: ${DB_USERNAME:rcosd}
+    password: ${DB_PASSWORD:Changeme0}
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+
+  jpa:
+    database-platform: org.hibernate.dialect.OracleDialect
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
+
+spring.servlet.multipart:
+  max-file-size: ${UPLOAD_MAX_FILE_SIZE:10MB}
+  max-request-size: ${UPLOAD_MAX_REQUEST_SIZE:15MB}
+
+jwt:
+  secret: ${JWT_SECRET:devonlyinsecuresecretchangeme}
+  expiration-minutes: ${JWT_EXPIRATION_MINUTES:60}
+
+ollama:
+  base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+  model: ${OLLAMA_MODEL:llama3.2}
+  embedding-model: ${OLLAMA_EMBEDDING_MODEL:nomic-embed-text}
+  request-timeout-seconds: ${OLLAMA_TIMEOUT_SECONDS:60}
+
+handbook:
+  embedding-dimensions: ${HANDBOOK_EMBEDDING_DIMENSIONS:768}
+  top-k: ${HANDBOOK_TOP_K:5}
